@@ -43,7 +43,7 @@ const WatermarkNotice = ({ onRemoveWatermark, watermarkRemoved }) => {
               )}
 
               <a
-                href="https://www.buymeacoffee.com/"
+                href="https://www.buymeacoffee.com/slideshow"
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={onRemoveWatermark}

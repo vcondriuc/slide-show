@@ -1,9 +1,9 @@
 export const createFFmpegCommands = (photos, textOverlays, settings) => {
+  // This function can be extended for more complex FFmpeg command generation
+  // Currently, the main video export logic is handled in useVideoExport hook
   const commands = [];
   
-  // Basic approach: concatenate images with transitions
-  // Each photo will be shown for its duration
-  
+  // Placeholder for future enhancements
   return commands;
 };
 
@@ -18,7 +18,8 @@ export const generateVideoFromImages = async (ffmpeg, photos, options = {}) => {
   } = options;
 
   try {
-    // This is a simplified version. Full implementation would need more complex FFmpeg commands
+    // Build filter complex for FFmpeg
+    // This is a helper function that generates filter strings for video processing
     const filterComplex = [];
     
     // For each photo, create a filter that displays it for its duration
@@ -32,6 +33,8 @@ export const generateVideoFromImages = async (ffmpeg, photos, options = {}) => {
       );
     }
     
+    // Note: Full transition and text overlay implementation would require
+    // more complex filter chains. This provides the basic structure.
     return filterComplex;
   } catch (error) {
     console.error('Error generating video commands:', error);

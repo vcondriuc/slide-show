@@ -23,6 +23,9 @@ export const useVideoExport = () => {
         setProgress(Math.round(prog * 100));
       });
 
+      // Load FFmpeg from CDN
+      // Note: In production, consider self-hosting these files or using a CDN with SLA
+      // See: https://github.com/ffmpegwasm/ffmpeg.wasm/blob/main/docs/api.md
       const baseURL = 'https://unpkg.com/@ffmpeg/core@0.12.6/dist/unithread';
       await ffmpeg.load({
         coreURL: await toBlobURL(`${baseURL}/ffmpeg-core.js`, 'text/javascript'),
@@ -80,6 +83,8 @@ export const useVideoExport = () => {
       await ffmpeg.writeFile('concat.txt', new TextEncoder().encode(concatContent));
 
       // Run FFmpeg command
+      // Note: This is a basic implementation. Advanced features like custom transitions,
+      // text overlays, and watermarks would require more complex filter graphs.
       const outputFile = 'output.mp4';
       await ffmpeg.exec([
         '-f', 'concat',

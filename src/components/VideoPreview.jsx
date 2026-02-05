@@ -58,23 +58,28 @@ const VideoPreview = ({ photos, textOverlays, transition }) => {
       setIsPlaying(false);
     } else {
       setIsPlaying(true);
-      intervalRef.current = setInterval(() => {
-        setCurrentIndex((prev) => {
-          if (prev >= photos.length - 1) {
-            clearInterval(intervalRef.current);
-            setIsPlaying(false);
-            return 0;
-          }
-          return prev + 1;
-        });
-      }, (photos[currentIndex]?.duration || 3) * 1000);
+      const playNext = (index) => {
+        const duration = (photos[index]?.duration || 3) * 1000;
+        intervalRef.current = setTimeout(() => {
+          setCurrentIndex((prev) => {
+            const nextIndex = prev + 1;
+            if (nextIndex >= photos.length) {
+              setIsPlaying(false);
+              return 0;
+            }
+            playNext(nextIndex);
+            return nextIndex;
+          });
+        }, duration);
+      };
+      playNext(currentIndex);
     }
   };
 
   useEffect(() => {
     return () => {
       if (intervalRef.current) {
-        clearInterval(intervalRef.current);
+        clearTimeout(intervalRef.current);
       }
     };
   }, []);
